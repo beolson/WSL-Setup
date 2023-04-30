@@ -1,10 +1,11 @@
 - hosts: localhost
   tasks:
 
-  - name: Ansible shell module multiple commands
+
+  - name: Configure the Package Source (PPM) for node 20
     shell: 'curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash -'
 
-  - name: Install the package "gcc"
+  - name: Install apt packages
     apt:
       name: 
         - gcc
@@ -12,21 +13,6 @@
         - g++
         - nodejs
       state: present
-  
-  # - name: Install the package "make"
-  #   apt:
-  #     name: make
-  #     state: present
-
-  # - name: Install the package "G++"
-  #   apt:
-  #     name: g++
-  #     state: present
-
-  # - name: Install the package "gcc"
-  #   apt:
-  #     name: nodejs
-  #     state: present
 
   - name: copy certificates to trusted ca path
     copy: 
@@ -43,16 +29,20 @@
       content: export NODE_EXTRA_CA_CERTS=/usr/local/share/ca-certificates/wincerts.pem
       dest: /etc/profile.d/nodeconfig.sh
 
-
-  
-
-
   - name: "Install NPM-distributed command-line tools"
     npm:
       global: yes
       name: "{{ item }}"
     with_items:
-      - firebase-tools
+      - "@devcontainers/cli"
+
+  - name: Disable Windows Interop
+    copy:
+      dest: "/etc/wsl.conf"
+      content: |
+        [interop]
+        enabled = false
+        appendWindowsPath = false
 
   handlers: 
   - name: update trusted ca

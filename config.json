@@ -1,15 +1,12 @@
 {
-    "wslNameName" : "",
     "wslDistribution": "Ubuntu-22.04",
+    "userName" : "beolson",
     "certificates" : [
         {
-            "thumbprint": "CABD2A79A1076A31F21D253635CB039D4329A5E8",
-            "exportFileNameBase" : "one"
+            "thumbprint": "CABD2A79A1076A31F21D253635CB039D4329A5E8"
         },
         {
-            "thumbprint": "CABD2A79A1076A31F21D253635CB039D4329A5E8",
-            "exportFileNameBase" : "two"
+            "thumbprint": "CDD4EEAE6000AC7F40C3802C171E30148030C072"
         }
-
     ]
 }
