@@ -1,0 +1,59 @@
+- hosts: localhost
+  tasks:
+
+  - name: Ansible shell module multiple commands
+    shell: 'curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash -'
+
+  - name: Install the package "gcc"
+    apt:
+      name: 
+        - gcc
+        - make
+        - g++
+        - nodejs
+      state: present
+  
+  # - name: Install the package "make"
+  #   apt:
+  #     name: make
+  #     state: present
+
+  # - name: Install the package "G++"
+  #   apt:
+  #     name: g++
+  #     state: present
+
+  # - name: Install the package "gcc"
+  #   apt:
+  #     name: nodejs
+  #     state: present
+
+  - name: copy certificates to trusted ca path
+    copy: 
+      src: 'wincerts.pem'
+      dest: '/usr/local/share/ca-certificates/'
+      owner: root
+      group: root
+      mode: 0644
+    notify: 
+      - update trusted ca
+
+  - name: configure node to use certificates
+    copy:
+      content: export NODE_EXTRA_CA_CERTS=/usr/local/share/ca-certificates/wincerts.pem
+      dest: /etc/profile.d/nodeconfig.sh
+
+
+  
+
+
+  - name: "Install NPM-distributed command-line tools"
+    npm:
+      global: yes
+      name: "{{ item }}"
+    with_items:
+      - firebase-tools
+
+  handlers: 
+  - name: update trusted ca
+    shell: /usr/sbin/update-ca-certificates

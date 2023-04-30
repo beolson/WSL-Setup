@@ -1,0 +1,15 @@
+{
+    "wslNameName" : "",
+    "wslDistribution": "Ubuntu-22.04",
+    "certificates" : [
+        {
+            "thumbprint": "CABD2A79A1076A31F21D253635CB039D4329A5E8",
+            "exportFileNameBase" : "one"
+        },
+        {
+            "thumbprint": "CABD2A79A1076A31F21D253635CB039D4329A5E8",
+            "exportFileNameBase" : "two"
+        }
+
+    ]
+}
