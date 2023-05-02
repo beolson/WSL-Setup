@@ -8,6 +8,7 @@ sudo apt-get install -y ca-certificates
 sudo cp zscaler.crt /usr/local/share/ca-certificates/
 sudo update-ca-certificates
 
+
 export NODE_EXTRA_CA_CERTS=~/src/zscaler.pem
 ```
 
@@ -22,6 +23,12 @@ sudo dpkg -i /tmp/gcmcore.deb
 git-credential-manager configure
 
 git config --global --replace-all credential.helper "/mnt/c/Users/brian.olson/AppData/Local/Programs/Git/mingw64/bin/git-credential-manager.exe"
+
+
+ libsecret-1-0
+apt-get install  
+libsecret-1-0
+libsm6
 
 ```
 
@@ -63,3 +70,11 @@ npm install -g @devcontainers/cli
  Export-Certificate -Cert $cert -Type CERT -FilePath C:\Temp\Mycert.cer
  certutil.exe -encode C:\Temp\Mycert.cer ./mycert.pem
  
+
+
+
+ https://www.wslutiliti.es/wslu/install.html
+https://github.com/git-ecosystem/git-credential-manager/issues/515
+https://github.com/git-ecosystem/git-credential-manager/issues/515
+git config --global credential.guiPrompt false
+https://github.com/git-ecosystem/git-credential-manager/issues/1127
