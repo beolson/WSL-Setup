@@ -78,3 +78,4 @@ https://github.com/git-ecosystem/git-credential-manager/issues/515
 https://github.com/git-ecosystem/git-credential-manager/issues/515
 git config --global credential.guiPrompt false
 https://github.com/git-ecosystem/git-credential-manager/issues/1127
+https://github.com/microsoft/WSL/issues/5232
