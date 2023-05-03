@@ -1,6 +1,15 @@
 - hosts: localhost
   tasks:
 
+  - name: copy certificates to trusted ca path
+    copy: 
+      src: 'wincerts.pem'
+      dest: '/usr/local/share/ca-certificates/'
+      owner: root
+      group: root
+      mode: 0644
+    notify: 
+      - update trusted ca
 
   - name: Configure the Package Source (PPM) for node 20
     shell: 'curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash -'
@@ -25,20 +34,18 @@
         - wslu
       state: present
 
-  - name: copy certificates to trusted ca path
-    copy: 
-      src: 'wincerts.pem'
-      dest: '/usr/local/share/ca-certificates/'
-      owner: root
-      group: root
-      mode: 0644
-    notify: 
-      - update trusted ca
-
   - name: configure node to use certificates
     copy:
       content: export NODE_EXTRA_CA_CERTS=/usr/local/share/ca-certificates/wincerts.pem
       dest: /etc/profile.d/nodeconfig.sh
+
+  - name: configure node to use certificates
+    copy:
+      content:  | 
+        git-credential-manager configure
+        export GCM_CREDENTIAL_STORE=cache
+        git config --global credential.guiPrompt false
+      dest: /etc/profile.d/gitconfig.sh
 
   - name: "Install NPM-distributed command-line tools"
     npm:
