@@ -8,8 +8,9 @@
       owner: root
       group: root
       mode: 0644
-    notify: 
-      - update trusted ca
+
+  - name: update trusted ca
+    shell: /usr/sbin/update-ca-certificates
 
   - name: Configure the Package Source (PPM) for node 20
     shell: 'curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash -'
@@ -17,10 +18,19 @@
   - name: Add nginx stable repository from PPA and install its signing key on Ubuntu target
     ansible.builtin.apt_repository:
       repo: ppa:wslutilities/wslu
+      validate_certs: false
+
+  - name: Download git cred manager gcm-linux_amd64.2.0.886.deb
+    ansible.builtin.get_url:
+      url: https://github.com/GitCredentialManager/git-credential-manager/releases/download/v2.0.886/gcm-linux_amd64.2.0.886.deb
+      dest: ./
+      checksum: sha256:f18e36851c5aa4aacc20beef4ab12eb93c3727bd716e417b0593241d6f580750
+      validate_certs: false
 
   - name: Install git cred manager
     apt:
-      deb: https://github.com/GitCredentialManager/git-credential-manager/releases/download/v2.0.886/gcm-linux_amd64.2.0.886.deb
+      deb: ./gcm-linux_amd64.2.0.886.deb
+
 
   - name: Install apt packages
     apt:
@@ -53,6 +63,7 @@
       name: "{{ item }}"
     with_items:
       - "@devcontainers/cli"
+    debugger: on_failed
 
   # - name: Disable Windows Interop
   #   copy:
@@ -62,6 +73,6 @@
   #       enabled = false
   #       appendWindowsPath = false
 
-  handlers: 
-  - name: update trusted ca
-    shell: /usr/sbin/update-ca-certificates
+  # handlers: 
+  # - name: update trusted ca
+  #   shell: /usr/sbin/update-ca-certificates
