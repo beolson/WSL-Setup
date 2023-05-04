@@ -20,6 +20,7 @@
       repo: ppa:wslutilities/wslu
       validate_certs: false
 
+#/var/cache/apt/archives/ - https://www.reddit.com/r/linux4noobs/comments/r53rf1/where_to_store_deb_files/
   - name: Download git cred manager gcm-linux_amd64.2.0.886.deb
     ansible.builtin.get_url:
       url: https://github.com/GitCredentialManager/git-credential-manager/releases/download/v2.0.886/gcm-linux_amd64.2.0.886.deb
