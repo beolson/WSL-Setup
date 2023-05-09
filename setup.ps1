@@ -16,20 +16,20 @@ $json.certificates | ForEach-Object {
 
     $cert = Get-ChildItem -path "Cert:\*$thumbprint" -Recurse | Select-Object -First 1
     Export-Certificate -Cert $cert -Type CERT -FilePath .\wslSetup\certs\$thumbprint.cer
-    certutil.exe -encode .\wslSetup\certs\$thumbprint.cer .\wslSetup\certs\$thumbprint.pem
+    certutil.exe -encode .\wslSetup\certs\$thumbprint.cer .\wslSetup\certs\$thumbprint.crt
     Remove-Item -Path .\wslSetup\certs\$thumbprint.cer -Force
 }
 
 
 # merge all our certificate pem files into one called "wincerts.pem"
-Get-ChildItem .\wslSetup\certs -include *.pem -rec | ForEach-Object {gc $_; ""} | out-file .\wslSetup\wincerts.pem
+Get-ChildItem .\wslSetup\certs -include *.crt -rec | ForEach-Object {gc $_; ""} | out-file .\wslSetup\certs\wincerts.pem
 
 # cleanup our certificates working directory
-Remove-Item -Path .\wslSetup\certs\ -Force -Recurse
+# Remove-Item -Path .\wslSetup\certs\ -Force -Recurse
 
 # Update our shell script to remove windows line endings
 wsl --shell-type standard --distribution $distributionName --user $wslUserName --exec sed -i 's/\r$//' ./wslSetup/bootstrap.sh
 wsl --shell-type standard --distribution $distributionName --user $wslUserName --exec sudo ./wslSetup/bootstrap.sh
 
 
-Remove-Item -Path .\wslSetup\wincerts.pem -Force 
+Remove-Item -Path .\wslSetup\certs\ -Force -Recurse

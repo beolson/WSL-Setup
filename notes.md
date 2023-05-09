@@ -79,3 +79,14 @@ https://github.com/git-ecosystem/git-credential-manager/issues/515
 git config --global credential.guiPrompt false
 https://github.com/git-ecosystem/git-credential-manager/issues/1127
 https://github.com/microsoft/WSL/issues/5232
+
+# ansible debugging 
+
+p result._result
+
+\
+https://unix.stackexchange.com/questions/368123/how-to-extract-the-root-ca-and-subordinate-ca-from-a-certificate-chain-in-linux
+
+openssl s_client -showcerts -verify 5 -connect stackexchange.com:443 < /dev/null
+
+https://stackoverflow.com/questions/17287713/using-iconv-to-convert-from-utf-16le-to-utf-8

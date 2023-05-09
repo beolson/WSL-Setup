@@ -3,10 +3,10 @@
     "userName" : "beolson",
     "certificates" : [
         {
-            "thumbprint": "CABD2A79A1076A31F21D253635CB039D4329A5E8"
+            "thumbprint": "D72F47D87420E3F0F9BDCAC6F03A566743C481B9"
         },
         {
-            "thumbprint": "CDD4EEAE6000AC7F40C3802C171E30148030C072"
+            "thumbprint": "E74954EDFCA73B9DC4450DC8CBB9F4F58F9FE191"
         }
     ]
 }
