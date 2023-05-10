@@ -1,74 +1,85 @@
 - hosts: localhost
   tasks:
 
-  - name: copy certificates to trusted ca path
-    copy:
-      src: './certs/'
-      dest: '/usr/local/share/ca-certificates/'
-      owner: root
-      group: root
-      mode: 0644
+  - name: Check if we have certs to configure
+    stat: 
+      path: ./certs/wincerts.pem
+    register: p
 
-  - name: Change encoding for pem file
-    shell: 'iconv -f UTF-16LE -t UTF-8 /usr/local/share/ca-certificates/wincerts.pem -o /usr/local/share/ca-certificates/wincerts.pem'
+  - name: Configure Custom Certificates
+    block: 
 
-  - name: update trusted ca
-    shell: /usr/sbin/update-ca-certificates
-    become: yes
+    - name: copy certificates to trusted ca path
+      copy:
+        src: './certs/'
+        dest: '/usr/local/share/ca-certificates/'
+        owner: root
+        group: root
+        mode: 0644
 
-  # # - name: configure apt to use certificates
-  # #   copy:
-  # #     content: |
-  # #       Acquire::https {
-  # #         Verify-Peer "false";
-  # #         Verify-Host "false";
-  # #       }
-  # #     dest: /etc/apt/apt.conf.d/90sslverify
+    - name: Change encoding for pem file
+      shell: 'iconv -f UTF-16LE -t UTF-8 /usr/local/share/ca-certificates/wincerts.pem -o /usr/local/share/ca-certificates/wincerts.pem'
 
-  # # # - name: Configure the Package Source (PPM) for node 20
-  # # #   shell: 'curl -fsSLk https://deb.nodesource.com/setup_20.x | sudo -E bash -'
-  # # #   become: yes
+    - name: update trusted ca
+      shell: /usr/sbin/update-ca-certificates
+      become: yes
 
-  # # # - name: Download Package Source (PPM) for node 20 setu pscript
-  # # #   ansible.builtin.get_url:
-  # # #     url: https://deb.nodesource.com/setup_20.x
-  # # #     dest: ./nodesetup.sh
-  # # #     checksum: sha256:ece657290e0114462e4cb24a29f269e51b2abd7772c9c6d801c66b521e4e53f6
-  # # #     validate_certs: false
+    - name: configure node to use certificates
+      copy:
+        content: |
+          export NODE_EXTRA_CA_CERTS=/usr/local/share/ca-certificates/wincerts.pem
+        dest: /etc/profile.d/nodeconfig.sh
 
-  # # # - name:  run script to install PPM for node 20
-  # # #   become: yes
-  # # #   shell: "./nodesetup.sh"
+    - name: Creates directory
+      file:
+        path: /usr/etc
+        state: directory
 
-  - name: "Add nodejs apt key"
-    apt_key:
-      url: https://deb.nodesource.com/gpgkey/nodesource.gpg.key
-      state: present
+    - name: configure NPM to use certificates
+      copy:
+        content: |
+          cafile=/usr/local/share/ca-certificates/wincerts.pem
+        dest: /usr/etc/npmrc
 
+    when: p.stat.exists == True
 
-  - name: "Add nodejs 20.x ppa for apt repo"
-    apt_repository:
-      repo: deb https://deb.nodesource.com/node_20.x jammy main
-      update_cache: no
+  - name: Configure PPA for Node and WSLU
+    block: 
 
+    - name: "Add nodejs apt key"
+      apt_key:
+        url: https://deb.nodesource.com/gpgkey/nodesource.gpg.key
+        state: present
 
-  - name: Add windows services for linux stable repository from PPA and install its signing key on Ubuntu target
-    ansible.builtin.apt_repository:
-      repo: ppa:wslutilities/wslu
-      update_cache: no
+    - name: "Add nodejs 20.x ppa for apt repo"
+      apt_repository:
+        repo: deb https://deb.nodesource.com/node_20.x jammy main
+        update_cache: no
 
+    - name: Add windows services for linux stable repository from PPA and install its signing key on Ubuntu target
+      ansible.builtin.apt_repository:
+        repo: ppa:wslutilities/wslu
+        update_cache: no
 
-#/var/cache/apt/archives/ - https://www.reddit.com/r/linux4noobs/comments/r53rf1/where_to_store_deb_files/
-  - name: Download git cred manager gcm-linux_amd64.2.0.886.deb
-    ansible.builtin.get_url:
-      url: https://github.com/GitCredentialManager/git-credential-manager/releases/download/v2.0.886/gcm-linux_amd64.2.0.886.deb
-      dest: /var/cache/apt/archives/gcm-linux_amd64.2.0.886.deb
-      checksum: sha256:f18e36851c5aa4aacc20beef4ab12eb93c3727bd716e417b0593241d6f580750
+  - name: Install Git Credential Manager
+    block: 
+    - name: Download git cred manager gcm-linux_amd64.2.0.886.deb
+      ansible.builtin.get_url:
+        url: https://github.com/GitCredentialManager/git-credential-manager/releases/download/v2.0.886/gcm-linux_amd64.2.0.886.deb
+        dest: /var/cache/apt/archives/gcm-linux_amd64.2.0.886.deb
+        checksum: sha256:f18e36851c5aa4aacc20beef4ab12eb93c3727bd716e417b0593241d6f580750
 
-  - name: Install git cred manager
-    apt:
-      deb: /var/cache/apt/archives/gcm-linux_amd64.2.0.886.deb
+    - name: Install git cred manager
+      apt:
+        deb: /var/cache/apt/archives/gcm-linux_amd64.2.0.886.deb
 
+    - name: configure git to use get cred manager
+      copy:
+        content:  |
+          git-credential-manager configure
+          export GCM_CREDENTIAL_STORE=cache
+          git config --global credential.guiPrompt false
+        dest: /etc/profile.d/gitconfig.sh
 
   - name: Install apt packages
     apt:
@@ -83,47 +94,9 @@
       update_cache: yes
       state: present
 
-  - name: configure node to use certificates
-    copy:
-      content: |
-        export NODE_EXTRA_CA_CERTS=/usr/local/share/ca-certificates/wincerts.pem
-      dest: /etc/profile.d/nodeconfig.sh
-
-  - name: Creates directory
-    file:
-      path: /usr/etc
-      state: directory
-
-  - name: configure NPM to use certificates
-    copy:
-      content: |
-        cafile=/usr/local/share/ca-certificates/wincerts.pem
-      dest: /usr/etc/npmrc
-
-  - name: configure git to use get cred manager
-    copy:
-      content:  |
-        git-credential-manager configure
-        export GCM_CREDENTIAL_STORE=cache
-        git config --global credential.guiPrompt false
-      dest: /etc/profile.d/gitconfig.sh
-
   - name: "Install NPM-distributed command-line tools"
     npm:
       global: yes
       name: "{{ item }}"
     with_items:
       - "@devcontainers/cli"
-  #   debugger: on_failed
-
-  # # # - name: Disable Windows Interop
-  # # #   copy:
-  # # #     dest: "/etc/wsl.conf"
-  # # #     content: |
-  # # #       [interop]
-  # # #       enabled = false
-  # # #       appendWindowsPath = false
-
-  # # # handlers:
-  # # # - name: update trusted ca
-  # # #   shell: /usr/sbin/update-ca-certificates
