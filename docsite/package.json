@@ -4,8 +4,16 @@
   "description": "",
   "main": "next.config.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "next dev -p 4000"
   },
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "next": "^13.4.2",
+    "nextra": "^2.5.2",
+    "nextra-theme-docs": "^2.5.2",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  }
 }
