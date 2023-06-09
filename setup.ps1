@@ -31,7 +31,7 @@ if($json.certificates.count -gt 0){
 
 # Update our shell script to remove windows line endings
 wsl --shell-type standard --distribution $distributionName --user $wslUserName --exec sed -i 's/\r$//' ./wslSetup/bootstrap.sh
-wsl --shell-type standard --distribution $distributionName --user $wslUserName --exec sudo ./wslSetup/bootstrap.sh
+wsl --shell-type standard --distribution $distributionName --user $wslUserName --exec bash ./wslSetup/bootstrap.sh
 
 if(Test-Path -Path .\wslSetup\certs){
     Remove-Item -Path .\wslSetup\certs\ -Force -Recurse

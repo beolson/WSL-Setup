@@ -25,17 +25,10 @@
 		}
 	},
 	"containerEnv": {
-<<<<<<< HEAD
 		"NODE_TLS_REJECT_UNAUTHORIZED": "0"
 	},
 	"remoteEnv": {
 		"NODE_TLS_REJECT_UNAUTHORIZED": "0"
-=======
-		// "NODE_TLS_REJECT_UNAUTHORIZED": "0"
-	},
-	"remoteEnv": {
-		// "NODE_TLS_REJECT_UNAUTHORIZED": "0"
->>>>>>> 4b418b6f84b4c2dd995089bc7fdf154320ba478d
 	}
 
 	// Use 'portsAttributes' to set default properties for specific forwarded ports. 
