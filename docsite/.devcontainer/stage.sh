@@ -1,1 +1,0 @@
-cp -r /usr/local/share/ca-certificates/ ./certs/

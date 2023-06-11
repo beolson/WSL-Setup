@@ -1,9 +1,12 @@
 - hosts: localhost
-
   vars: 
     node_version: 18.16.0
 
   tasks:
+
+  - name: Configure Custom Certificates
+    import_role:
+      name: wsl-certificates
 
   - name: Configure Git Credentials Manager using role
     import_role:

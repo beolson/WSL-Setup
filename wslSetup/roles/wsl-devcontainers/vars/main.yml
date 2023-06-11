@@ -1,2 +1,3 @@
 ---
 # vars file for wsl-devcontainers
+node_version: 18.16.0

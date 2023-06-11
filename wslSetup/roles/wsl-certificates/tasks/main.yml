@@ -1,2 +1,27 @@
 ---
 # tasks file for wsl-certificates
+- name: Check if we have certs to configure
+  stat: 
+    path: ./certs/wincerts.pem
+  register: p
+
+- name: copy certificates to trusted ca path
+  when: p.stat.exists == True
+  copy:
+    src: './certs/'
+    dest: '/usr/local/share/ca-certificates/'
+    owner: root
+    group: root
+    mode: 0644
+
+- name: Change encoding for pem file
+  when: p.stat.exists == True
+  shell: 'iconv -f UTF-16LE -t UTF-8 /usr/local/share/ca-certificates/wincerts.pem -o /usr/local/share/ca-certificates/wincerts.pem'
+
+- name: update trusted ca
+  when: p.stat.exists == True
+  shell: /usr/sbin/update-ca-certificates
+  become: yes
+
+
+

@@ -14,10 +14,12 @@
     update_cache: yes
     state: present
 
-- name: Create temp node link
+- name: Create temp node symbolic link 
   become: true
-  shell: >
-    ln -s /home/{{ ansible_user_id }}/.nvm/versions/node/v18.16.0/bin/node /usr/bin/node
+  ansible.builtin.file:
+    src: '/home/{{ ansible_user_id }}/.nvm/versions/node/v{{ node_version }}/bin/node'
+    dest: '/usr/bin/node'
+    state: link
 
 - name: "Install NPM-distributed command-line tools"
   debugger: on_failed
@@ -25,17 +27,13 @@
   npm:
     global: yes
     name: "{{ item }}"
-    executable: /home/{{ ansible_user_id }}/.nvm/versions/node/v18.16.0/bin/npm
+    executable: /home/{{ ansible_user_id }}/.nvm/versions/node/v{{ node_version }}/bin/npm
   with_items:
     - "@devcontainers/cli"
 
-- name: remove temp node link
+- name:  Remove temp node symbolic link 
   become: true
-  shell: >
-    rm /usr/bin/node
+  ansible.builtin.file:
+    path: /usr/bin/node
+    state: absent
 
-# - name: Install NPM-distributed command-line tools
-#   ansible.builtin.shell: >
-#     npm install {{ item }} -g
-#   with_items:
-#     - "@devcontainers/cli"
