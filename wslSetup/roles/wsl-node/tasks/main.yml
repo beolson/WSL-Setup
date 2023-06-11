@@ -17,6 +17,6 @@
 
 - name: configure node to use certificates
   when: p.stat.exists == True
- shell: >
-    export NODE_EXTRA_CA_CERTS=/usr/local/share/ca-certificates/wincerts.pem
-    npm config set cafile=/usr/local/share/ca-certificates/wincerts.pem
+  shell: >
+      export NODE_EXTRA_CA_CERTS=/usr/local/share/ca-certificates/wincerts.pem
+      npm config set cafile=/usr/local/share/ca-certificates/wincerts.pem
