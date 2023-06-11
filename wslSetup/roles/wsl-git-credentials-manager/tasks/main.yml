@@ -1,0 +1,22 @@
+---
+# tasks file for wsl-git-credentials-manager
+- name: Download git cred manager gcm-linux_amd64.2.0.886.deb
+  become: yes
+  ansible.builtin.get_url:
+    url: https://github.com/GitCredentialManager/git-credential-manager/releases/download/v2.0.886/gcm-linux_amd64.2.0.886.deb
+    dest: /var/cache/apt/archives/gcm-linux_amd64.2.0.886.deb
+    checksum: sha256:f18e36851c5aa4aacc20beef4ab12eb93c3727bd716e417b0593241d6f580750
+
+- name: Install git cred manager
+  become: yes
+  apt:
+    deb: /var/cache/apt/archives/gcm-linux_amd64.2.0.886.deb
+
+- name: configure git to use get cred manager
+  become: yes
+  copy:
+    content:  |
+      git-credential-manager configure
+      export GCM_CREDENTIAL_STORE=cache
+      git config --global credential.guiPrompt false
+    dest: /etc/profile.d/gitconfig.sh

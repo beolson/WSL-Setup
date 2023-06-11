@@ -5,7 +5,7 @@ $json = Get-Content -Raw -Path .\config.json | ConvertFrom-Json
 $distributionName = $json.wslDistribution
 $wslUserName = $json.userName
 # $linuxBootstrapCmd = "sed 's/\r$//' ./wslSetup/bootstrap.sh | sudo sh";
-$linuxBootstrapCmd = 'sudo ./wslSetup/bootstrap.sh'
+# $linuxBootstrapCmd = 'sudo ./wslSetup/bootstrap.sh'
 
 
 if($json.certificates.count -gt 0){

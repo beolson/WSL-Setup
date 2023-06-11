@@ -1,0 +1,15 @@
+---
+# tasks file for wsl-wsl
+- name: Add windows services for linux stable repository from PPA and install its signing key on Ubuntu target
+  become: yes
+  ansible.builtin.apt_repository:
+    repo: ppa:wslutilities/wslu
+    update_cache: no
+
+- name: Install apt packages
+  become: yes
+  apt:
+    name:
+      - wslu
+    update_cache: yes
+    state: present
