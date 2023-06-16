@@ -29,4 +29,5 @@
       git-credential-manager configure
       export GCM_CREDENTIAL_STORE=cache
       git config --global credential.guiPrompt false
+      export GCM_AZREPOS_CREDENTIALTYPE="oauth"
     dest: /etc/profile.d/gitconfig.sh
