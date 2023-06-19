@@ -1,6 +1,8 @@
 - hosts: localhost
   vars: 
     node_version: 18.16.0
+    git_username: "Brian Olson"
+    git_email: "beolson@hero4hire.com"
 
   tasks:
   - name: Check if we have certs to configure
@@ -16,6 +18,18 @@
   - name: Configure Git Credentials Manager using role
     import_role:
       name: wsl-git-credentials-manager
+
+  - name: setup git name
+    git_config:
+      name: user.name
+      scope: global
+      value: "{{ git_username }}"
+      
+  - name: setup git user email
+    git_config:
+      name: user.email
+      scope: global
+      value: "{{ git_email }}"
 
   - name: Configure WSL Utilities using role
     import_role:
