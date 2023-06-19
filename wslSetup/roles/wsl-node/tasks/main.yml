@@ -10,13 +10,4 @@
     /bin/bash -c "source ~/.nvm/nvm.sh && nvm install {{ node_version }} && nvm alias default {{ node_version }}"
     creates: "{{ ansible_env.HOME }}/.nvm/versions/{{ node_version }}"
 
-- name: Check if we have certs to configure
-  stat: 
-    path: /usr/local/share/ca-certificates/wincerts.pem
-  register: p
 
-- name: configure node to use certificates
-  when: p.stat.exists == True
-  shell: >
-      export NODE_EXTRA_CA_CERTS=/usr/local/share/ca-certificates/wincerts.pem
-      npm config set cafile=/usr/local/share/ca-certificates/wincerts.pem

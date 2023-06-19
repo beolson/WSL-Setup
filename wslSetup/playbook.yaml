@@ -3,8 +3,13 @@
     node_version: 18.16.0
 
   tasks:
+  - name: Check if we have certs to configure
+    stat: 
+      path: ./certs/wincerts.pem
+    register: certs
 
   - name: Configure Custom Certificates
+    when: certs.stat.exists == True
     import_role:
       name: wsl-certificates
 
@@ -20,6 +25,14 @@
     import_role:
       name: wsl-node
 
-  - name: Configure Dev Containers using role
+  - name: Configure custom certificates for Node and NPM 
+    when: certs.stat.exists == True
     import_role:
-      name: wsl-devcontainers
+      name: wsl-node-custom-certs
+
+  # - name: Configure Dev Containers using role
+  #   import_role:
+  #     name: wsl-devcontainers
+
+
+  
