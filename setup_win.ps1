@@ -6,3 +6,4 @@ winget install --id=Git.Git -e  ;
 winget install -e --id Google.Chrome ;
 winget install -e --id Notepad++.Notepad++ ;
 winget install -e --id Microsoft.WindowsTerminal ; 
+winget install --id=Microsoft.Azure.StorageExplorer  -e
