@@ -21,11 +21,14 @@
     deb: /var/cache/apt/archives/gcm-linux_amd64.2.0.886.deb
 
 - name: configure git to use get cred manager
+  shell: |
+    git-credential-manager configure
+    git config --global credential.guiPrompt false
+
+- name: Set Credential Manager types and store
   become: yes
   copy:
     content:  |
-      git-credential-manager configure
       export GCM_CREDENTIAL_STORE=cache
-      git config --global credential.guiPrompt false
       export GCM_AZREPOS_CREDENTIALTYPE="oauth"
     dest: /etc/profile.d/gitconfig.sh
