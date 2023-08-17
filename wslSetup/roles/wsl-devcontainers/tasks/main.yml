@@ -30,6 +30,7 @@
     executable: /home/{{ ansible_user_id }}/.nvm/versions/node/v{{ node_version }}/bin/npm
   with_items:
     - "@devcontainers/cli"
+    - "@go-task/cli"
 
 - name:  Remove temp node symbolic link 
   become: true

@@ -1,0 +1,21 @@
+---
+
+- name: Install native apt packages
+  become: yes
+  apt:
+    name:
+      - libsecret-1-dev
+    update_cache: yes
+    state: present
+
+# - name: Install zsh
+#   become: yes
+#   apt:
+#     name:
+#       - zsh
+#     update_cache: yes
+#     state: present
+
+# - name: Install oh-my-zsh
+#   ansible.builtin.shell: >
+#     sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"

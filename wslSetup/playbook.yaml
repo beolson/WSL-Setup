@@ -44,6 +44,10 @@
     import_role:
       name: wsl-node-custom-certs
 
+  - name: Custom Dev Libs 
+    import_role:
+      name: wsl-native-dev-lib
+
   # - name: Configure Dev Containers using role
   #   import_role:
   #     name: wsl-devcontainers
