@@ -1,5 +1,3 @@
----
-# tasks file for wsl-certificates
 
 - name: copy certificates to trusted ca path
   become: yes
@@ -17,6 +15,4 @@
 - name: update trusted ca
   shell: /usr/sbin/update-ca-certificates
   become: yes
-
-
 

@@ -1,4 +1,3 @@
----
 - name: Install nvm
   ansible.builtin.shell: >
     curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.3/install.sh | bash
@@ -10,5 +9,3 @@
     /bin/bash -c "source ~/.nvm/nvm.sh && nvm install {{ node_version }} && nvm alias default {{ node_version }}"
   args:
     creates: "{{ ansible_env.HOME }}/.nvm/versions/{{ node_version }}"
-
-

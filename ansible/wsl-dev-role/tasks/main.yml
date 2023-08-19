@@ -1,2 +1,47 @@
 ---
 # tasks file for wsl-dev-role
+
+
+  - name: Check if we have certs to configure
+    stat: 
+      path: ./certs/wincerts.pem
+    register: certs
+
+  - name: Configure Custom Certificates
+    when: certs.stat.exists == True
+    ansible.builtin.import_tasks: wsl-certificates.yml
+
+  - name: Configure Git Credentials Manager using role
+    ansible.builtin.import_tasks: git-credentials-manager.yml
+  
+  - name: setup git name
+    git_config:
+      name: user.name
+      scope: global
+      value: "{{ git_username }}"
+
+  - name: setup git user email
+    git_config:
+      name: user.email
+      scope: global
+      value: "{{ git_email }}"
+
+  - name: setup git default branch
+    git_config:
+      name: init.defaultbranch
+      scope: global
+      value: "main"
+
+
+  - name: Configure WSL Utilities
+    ansible.builtin.import_tasks: wsl-utilities.yml
+
+  - name: Configure Node 
+    ansible.builtin.import_tasks: setup-node.yml
+
+  - name: Configure custom certificates for Node and NPM 
+    when: certs.stat.exists == True
+    ansible.builtin.import_tasks: node-custom-certs.yml
+
+  - name: Custom Dev Libs 
+    ansible.builtin.import_tasks: native-dev-lib.yml
