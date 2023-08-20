@@ -3,6 +3,7 @@
     node_version: 18.16.0
     git_username: "Brian Olson"
     git_email: "beolson@hero4hire.com"
+    the_user: "{{ ansible_user_id }}"
 
   tasks:
   - name: Configure WSL dev environment
