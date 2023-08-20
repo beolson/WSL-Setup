@@ -9,3 +9,6 @@
     /bin/bash -c "source ~/.nvm/nvm.sh && nvm install {{ node_version }} && nvm alias default {{ node_version }}"
   args:
     creates: "{{ ansible_env.HOME }}/.nvm/versions/{{ node_version }}"
+
+
+    

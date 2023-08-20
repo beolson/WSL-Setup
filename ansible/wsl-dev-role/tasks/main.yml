@@ -10,6 +10,9 @@
   - name: Configure Custom Certificates
     when: certs.stat.exists == True
     ansible.builtin.import_tasks: wsl-certificates.yml
+  
+  - name: shell
+    ansible.builtin.import_tasks: config-shell.yml
 
   - name: Configure Git Credentials Manager using role
     ansible.builtin.import_tasks: git-credentials-manager.yml
@@ -49,9 +52,6 @@
   - name: Python
     ansible.builtin.import_tasks: config-python.yml
 
-  - name: shell
-    ansible.builtin.import_tasks: config-shell.yml
-
   - name: Azure CLI
     ansible.builtin.import_tasks: azure-cli.yml
 
@@ -66,3 +66,10 @@
 
   - name: Kubernetes Dev
     ansible.builtin.import_tasks: k8s-dev.yml
+
+  - name: Write .zshrc config
+    template:
+      src: .zshrc
+      dest: "~/.zshrc"
+      owner: "{{ ansible_user_id }}"
+      backup: yes
