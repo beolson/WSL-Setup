@@ -1,0 +1,5 @@
+
+
+- name: Install task using npm 
+  ansible.builtin.shell: >
+    npm install -g @go-task/cli

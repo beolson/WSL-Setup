@@ -43,11 +43,26 @@
     when: certs.stat.exists == True
     ansible.builtin.import_tasks: node-custom-certs.yml
 
-  - name: Custom Dev Libs 
-    ansible.builtin.import_tasks: native-dev-lib.yml
+  - name: Custom Dev Libs and tools 
+    ansible.builtin.import_tasks: dev-lib-tools.yml
 
   - name: Python
     ansible.builtin.import_tasks: config-python.yml
 
   - name: shell
     ansible.builtin.import_tasks: config-shell.yml
+
+  - name: Azure CLI
+    ansible.builtin.import_tasks: azure-cli.yml
+
+  - name: Dapr CLI
+    ansible.builtin.import_tasks: dapr-cli.yml
+
+  - name: Wireshark
+    ansible.builtin.import_tasks: setup-wireshark.yml
+
+  - name: Task
+    ansible.builtin.import_tasks: task-cli.yml
+
+  - name: Kubernetes Dev
+    ansible.builtin.import_tasks: k8s-dev.yml

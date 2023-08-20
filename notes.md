@@ -92,4 +92,8 @@ openssl s_client -showcerts -verify 5 -connect stackexchange.com:443 < /dev/null
 https://stackoverflow.com/questions/17287713/using-iconv-to-convert-from-utf-16le-to-utf-8
 
 \
-https://www.reddit.com/r/linux4noobs/comments/r53rf1/where_to_store_deb_files/
+https://www.reddit.com/r/linux4noobs/comments/r53rf1/where_to_store_deb_files/\
+
+
+
+//https://www.azurecitadel.com/packeransible/playbooks/
