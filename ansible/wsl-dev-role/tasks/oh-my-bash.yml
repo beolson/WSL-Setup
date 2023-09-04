@@ -1,0 +1,11 @@
+- name: oh-my-bash
+  ansible.builtin.shell: >
+    bash -c "$(curl -fsSL https://raw.githubusercontent.com/ohmybash/oh-my-bash/master/tools/install.sh)"
+  args:
+    creates: "{{ ansible_env.HOME }}/.oh-my-bash/"
+
+- name: set oh my bash theme
+  ansible.builtin.lineinfile:
+    path: "{{ ansible_env.HOME }}/.bashrc"
+    regexp: 'OSH_THEME=".*"'
+    line: OSH_THEME="agnoster"

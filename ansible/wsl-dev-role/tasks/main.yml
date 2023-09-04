@@ -12,45 +12,22 @@
     ansible.builtin.import_tasks: wsl-certificates.yml
   
   - name: shell
-    ansible.builtin.import_tasks: config-shell.yml
+    ansible.builtin.import_tasks: oh-my-bash.yml
 
   - name: Configure Git Credentials Manager using role
-    ansible.builtin.import_tasks: git-credentials-manager.yml
+    ansible.builtin.import_tasks: git.yml
   
-  - name: setup git name
-    git_config:
-      name: user.name
-      scope: global
-      value: "{{ git_username }}"
-
-  - name: setup git user email
-    git_config:
-      name: user.email
-      scope: global
-      value: "{{ git_email }}"
-
-  - name: setup git default branch
-    git_config:
-      name: init.defaultbranch
-      scope: global
-      value: "main"
-
-
   - name: Configure WSL Utilities
     ansible.builtin.import_tasks: wsl-utilities.yml
 
   - name: Configure Node 
-    ansible.builtin.import_tasks: setup-node.yml
-
-  - name: Configure custom certificates for Node and NPM 
-    when: certs.stat.exists == True
-    ansible.builtin.import_tasks: node-custom-certs.yml
+    ansible.builtin.import_tasks: node.yml
 
   - name: Custom Dev Libs and tools 
     ansible.builtin.import_tasks: dev-lib-tools.yml
 
   - name: Python
-    ansible.builtin.import_tasks: config-python.yml
+    ansible.builtin.import_tasks: python.yml
 
   - name: Azure CLI
     ansible.builtin.import_tasks: azure-cli.yml
@@ -59,17 +36,10 @@
     ansible.builtin.import_tasks: dapr-cli.yml
 
   - name: Wireshark
-    ansible.builtin.import_tasks: setup-wireshark.yml
+    ansible.builtin.import_tasks: wireshark.yml
 
   - name: Task
     ansible.builtin.import_tasks: task-cli.yml
 
   - name: Kubernetes Dev
     ansible.builtin.import_tasks: k8s-dev.yml
-
-  - name: Write .zshrc config
-    template:
-      src: .zshrc
-      dest: "~/.zshrc"
-      owner: "{{ ansible_user_id }}"
-      backup: yes
