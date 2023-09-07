@@ -1,5 +1,12 @@
 
 
 - name: Install task using npm 
-  ansible.builtin.shell: >
+  become: no
+  ansible.builtin.shell: |
+    . {{ ansible_env.HOME }}/.nvm/nvm.sh
     npm install -g @go-task/cli
+  args: 
+    executable: /bin/bash
+
+
+

@@ -1,14 +1,34 @@
+# - name: Install nvm
+#   ansible.builtin.shell: >
+#     curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.3/install.sh | bash
+#   args:
+#     creates: "{{ ansible_env.HOME }}/.nvm/nvm.sh"
+
+# - name: Install node and set version
+#   shell: 
+#     /bin/bash -c "source ~/.nvm/nvm.sh && nvm install {{ node_version }} && nvm alias default {{ node_version }}"
+#   args:
+#     creates: "{{ ansible_env.HOME }}/.nvm/versions/{{ node_version }}"
+
+
 - name: Install nvm
+  become: no
   ansible.builtin.shell: >
     curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.3/install.sh | bash
   args:
-    creates: "{{ ansible_env.HOME }}/.nvm/nvm.sh"
+    executable: /bin/bash
+    chdir: "$HOME"
+    creates: "$HOME/.nvm/nvm.sh"
 
-- name: Install node and set version
-  shell: 
-    /bin/bash -c "source ~/.nvm/nvm.sh && nvm install {{ node_version }} && nvm alias default {{ node_version }}"
+- name: Install node
+  become: no
+  shell: >
+    . {{ ansible_env.HOME }}/.nvm/nvm.sh && nvm install {{ node_version }}
   args:
+    executable: /bin/bash
+    chdir: "{{ ansible_env.HOME }}"
     creates: "{{ ansible_env.HOME }}/.nvm/versions/{{ node_version }}"
+
 
 - name: set NODE_EXTRA_CA_CERTS environment variable
   when: certs.stat.exists == True
