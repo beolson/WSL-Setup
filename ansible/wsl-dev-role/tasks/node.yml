@@ -1,17 +1,4 @@
-# - name: Install nvm
-#   ansible.builtin.shell: >
-#     curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.3/install.sh | bash
-#   args:
-#     creates: "{{ ansible_env.HOME }}/.nvm/nvm.sh"
-
-# - name: Install node and set version
-#   shell: 
-#     /bin/bash -c "source ~/.nvm/nvm.sh && nvm install {{ node_version }} && nvm alias default {{ node_version }}"
-#   args:
-#     creates: "{{ ansible_env.HOME }}/.nvm/versions/{{ node_version }}"
-
-
-- name: Install nvm
+- name: "**node** Install nvm"
   become: no
   ansible.builtin.shell: >
     curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.3/install.sh | bash
@@ -20,7 +7,8 @@
     chdir: "$HOME"
     creates: "$HOME/.nvm/nvm.sh"
 
-- name: Install node
+
+- name: "**node** Install node"
   become: no
   shell: >
     . {{ ansible_env.HOME }}/.nvm/nvm.sh && nvm install {{ node_version }}
@@ -30,7 +18,7 @@
     creates: "{{ ansible_env.HOME }}/.nvm/versions/{{ node_version }}"
 
 
-- name: set NODE_EXTRA_CA_CERTS environment variable
+- name: "**node** set NODE_EXTRA_CA_CERTS environment variable"
   when: certs.stat.exists == True
   ansible.builtin.blockinfile:  
     marker: "# {mark} ANSIBLE MANAGED BLOCK"
@@ -38,18 +26,8 @@
     block: |
       export NODE_EXTRA_CA_CERTS=/usr/local/share/ca-certificates/wincerts.pem
 
-# - name: Get uptime information
-    # when: certs.stat.exists == True
-#   shell: |
-#     . {{ ansible_env.HOME }}/.nvm/nvm.sh 
-#     npm config ls -l >> out.txt
-#   args:
-#     executable: /bin/bash
-#   register: result  
 
-# - debug: var=result
-
-- name: configure node to use certificates
+- name: "**node** configure node to use certificates"
   when: certs.stat.exists == True
   become: no
   shell: |

@@ -1,5 +1,4 @@
-# our bootstrap installs python, but lets put a pointer from python to python3
-- name: Install Python
+- name: "**python** Install Python"
   become: yes
   apt:
     name:

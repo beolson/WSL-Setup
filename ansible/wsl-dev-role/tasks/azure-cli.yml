@@ -1,5 +1,5 @@
 
-- name: Get packages needed for the install process
+- name: "**azure-cli**: Get packages needed for the install process"
   become: yes
   apt:
     name: "{{ packages }}"
@@ -13,20 +13,20 @@
       - lsb-release
       - gnupg
 
-- name: Import the Microsoft signing key into apt
+- name: "**azure-cli**: Import the Microsoft signing key into apt"
   become: yes
   apt_key:
     url: "https://packages.microsoft.com/keys/microsoft.asc"
     state: present
 
-- name: Add the Azure CLI software repository
+- name: "**azure-cli**: Add the Azure CLI software repository"
   become: yes
   apt_repository:
     repo: "deb [arch=amd64] https://packages.microsoft.com/repos/azure-cli/ {{ansible_distribution_release}} main"
     filename: azure-cli
     state: present
 
-- name: Update the apt cache and install the Azure CLI
+- name: "**azure-cli**: Update the apt cache and install the Azure CLI"
   become: yes
   apt:
     name: azure-cli

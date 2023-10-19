@@ -7,14 +7,14 @@
       path: ./certs/wincerts.pem
     register: certs
 
-  - name: Configure Custom Certificates
+  - name: Configure Custom Certificates 
     when: certs.stat.exists == True
     ansible.builtin.import_tasks: wsl-certificates.yml
   
-  - name: shell
+  - name: Configure Oh My Bash
     ansible.builtin.import_tasks: oh-my-bash.yml
 
-  - name: Configure Git Credentials Manager using role
+  - name: Configure Git Credentials Manager
     ansible.builtin.import_tasks: git.yml
   
   - name: Configure WSL Utilities
@@ -38,8 +38,8 @@
   - name: Wireshark
     ansible.builtin.import_tasks: wireshark.yml
 
-  - name: Task
-    ansible.builtin.import_tasks: task-cli.yml
+  - name: Just
+    ansible.builtin.import_tasks: just-cli.yml
 
   - name: Kubernetes Dev
     ansible.builtin.import_tasks: k8s-dev.yml

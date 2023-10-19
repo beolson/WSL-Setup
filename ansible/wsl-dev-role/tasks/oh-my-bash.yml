@@ -1,11 +1,28 @@
-- name: oh-my-bash
-  ansible.builtin.shell: >
-    bash -c "$(curl -fsSL https://raw.githubusercontent.com/ohmybash/oh-my-bash/master/tools/install.sh)"
-  args:
-    creates: "{{ ansible_env.HOME }}/.oh-my-bash/"
+- name: "**oh-my-bash** register status of {{ ansible_env.HOME }}/.oh-my-bash/"
+  ansible.builtin.stat: 
+    path: "{{ ansible_env.HOME }}/.oh-my-bash/"
+  register: oh_my_bash_status
 
-- name: set oh my bash theme
+- name: "**oh-my-bash** install oh-my-bash"
+  when : oh_my_bash_status.stat.exists == False
+  block: 
+  - name: "oh-my-bash: Download oh-my-bash install script"
+    ansible.builtin.uri:
+      url: https://raw.githubusercontent.com/ohmybash/oh-my-bash/07d9382938b3c82b2d5daad923ccb4890a12c350/tools/install.sh
+      return_content: yes
+    register: oh_my_bash_install_script
+
+  - name: "**oh-my-bash** run oh-my-bash install script"
+    ansible.builtin.shell:
+      cmd: bash -c 
+      stdin: "{{ oh_my_bash_install_script.content }}"
+    args:
+      creates: "{{ ansible_env.HOME }}/.oh-my-bash/"
+
+- name: "**oh-my-bash** set oh my bash theme"
   ansible.builtin.lineinfile:
     path: "{{ ansible_env.HOME }}/.bashrc"
     regexp: 'OSH_THEME=".*"'
     line: OSH_THEME="agnoster"
+
+

@@ -1,10 +1,10 @@
-- name: Add windows services for linux stable repository from PPA and install its signing key on Ubuntu target
+- name: "**wsl-utilities** Add windows services for linux stable repository from PPA"
   become: yes
   ansible.builtin.apt_repository:
     repo: ppa:wslutilities/wslu
     update_cache: no
 
-- name: Install apt packages
+- name: "**wsl-utilities** Install apt packages"
   become: yes
   apt:
     name:

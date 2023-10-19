@@ -1,12 +1,12 @@
 
-- name: Install microk8s
+- name: "**k8s-dev** Install microk8s"
   become: yes
   community.general.snap:
     classic: true
     name:
       - microk8s
 
-- name: tilt-cli
+- name: "**k8s-dev** tilt-cli"
   become: yes
   ansible.builtin.shell: >
     curl -fsSL https://raw.githubusercontent.com/tilt-dev/tilt/master/scripts/install.sh | bash
