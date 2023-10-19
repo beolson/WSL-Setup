@@ -6,7 +6,22 @@
     name:
       - microk8s
 
-- name: "**k8s-dev** tilt-cli"
-  become: yes
-  ansible.builtin.shell: >
-    curl -fsSL https://raw.githubusercontent.com/tilt-dev/tilt/master/scripts/install.sh | bash
+- name: "**k8s-dev** register status of /usr/local/bin/tilt"
+  ansible.builtin.stat: 
+    path: "/usr/local/bin/tilt"
+  register: tilt-status
+
+- name: "**k8s-dev** install tilt"
+  when : tilt-status.stat.exists == False
+  block: 
+  - name: "k8s-dev: Download tilt install script"
+    ansible.builtin.uri:
+      url: https://raw.githubusercontent.com/tilt-dev/tilt/master/scripts/install.sh
+      return_content: yes
+    register: tilt_install_script
+
+  - name: "**k8s-dev** run ktilt install script"
+    ansible.builtin.shell:
+      become: yes
+      cmd: bash -c 
+      stdin: "{{ tilt_install_script.content }}"

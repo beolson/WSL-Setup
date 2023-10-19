@@ -97,3 +97,6 @@ https://www.reddit.com/r/linux4noobs/comments/r53rf1/where_to_store_deb_files/\
 
 
 //https://www.azurecitadel.com/packeransible/playbooks/
+
+
+https://docs.makedeb.org/prebuilt-mpr/getting-started/

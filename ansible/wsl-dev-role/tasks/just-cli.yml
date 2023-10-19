@@ -1,5 +1,6 @@
 
 - name: "**just-cli** download makedeb repository signing key"
+  become: yes
   ansible.builtin.get_url:
     url: https://proget.makedeb.org/debian-feeds/makedeb.pub
     dest: /etc/apt/keyrings/makedeb.pub
