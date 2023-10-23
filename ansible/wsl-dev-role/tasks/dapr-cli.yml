@@ -14,7 +14,7 @@
 
   - name: "**dapr-cli** run dapr-cli install script"
     ansible.builtin.shell:
-      become: yes
-      cmd: bash -c 
-      stdin: "{{ dapr_cli_install_script.content }}"
-
+      cmd: "{{ dapr_cli_install_script.content }}"
+    become: yes 
+    args:
+      executable: /bin/bash

@@ -13,11 +13,10 @@
     register: oh_my_bash_install_script
 
   - name: "**oh-my-bash** run oh-my-bash install script"
-    ansible.builtin.shell:
-      cmd: bash -c 
-      stdin: "{{ oh_my_bash_install_script.content }}"
+    ansible.builtin.shell: 
+      cmd: "{{ oh_my_bash_install_script.content }}"
     args:
-      creates: "{{ ansible_env.HOME }}/.oh-my-bash/"
+      executable: /bin/bash
 
 - name: "**oh-my-bash** set oh my bash theme"
   ansible.builtin.lineinfile:

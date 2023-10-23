@@ -13,9 +13,10 @@
     register: nvm_install_script
 
   - name: "*node** run nvm install script"
-    ansible.builtin.shell:
-      cmd: bash -c 
-      stdin: "{{ nvm_install_script.content }}"
+    ansible.builtin.shell: 
+      "{{ nvm_install_script.content }}"
+    args:
+      executable: /bin/bash
 
 - name: "**node** Install node"
   become: no
