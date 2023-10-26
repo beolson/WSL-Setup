@@ -1,0 +1,28 @@
+---
+- name: "register status of {{ ansible_env.HOME }}/.oh-my-bash/"
+  ansible.builtin.stat: 
+    path: "{{ ansible_env.HOME }}/.oh-my-bash/"
+  register: oh_my_bash_status
+
+- name: "install oh-my-bash"
+  when : oh_my_bash_status.stat.exists == False
+  block: 
+  - name: "Download oh-my-bash install script"
+    ansible.builtin.get_url:
+      url: https://raw.githubusercontent.com/ohmybash/oh-my-bash/07d9382938b3c82b2d5daad923ccb4890a12c350/tools/install.sh
+      dest: /tmp/oh-my-bash.install.sh
+      mode: '0755'
+      force: 'yes'
+
+  - name: "run oh-my-bash install script"
+    ansible.builtin.shell: 
+      cmd: /tmp/oh-my-bash.install.sh
+    args:
+      executable: /bin/bash
+
+- name: "set oh my bash theme"
+  ansible.builtin.lineinfile:
+    state: present
+    path: "{{ ansible_env.HOME }}/.bashrc"
+    regexp: 'OSH_THEME=".*"'
+    line: OSH_THEME="{{theme}}"

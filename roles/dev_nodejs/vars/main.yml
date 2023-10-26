@@ -1,0 +1,3 @@
+---
+# vars file for dev_nodejs
+node_version: 18.16.0

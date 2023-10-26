@@ -1,0 +1,59 @@
+- hosts: localhost
+
+  tasks:
+  - name: Configure Windows Certificates
+    import_role:
+      name: dev_windows_certs
+    tags: dev_windows_certs
+
+  - name: Setup Git
+    import_role:
+      name: dev_git
+    tags: dev_git
+    vars: 
+      - git_username: "Brian Olson"
+      - git_email: "beolson@hero4hire.com"
+  
+  - name: Setup Oh My Bash
+    import_role:
+      name: dev_oh_my_bash
+    tags: dev_oh_my_bash
+    vars: 
+      - theme: "edsonarios"
+
+  - name: Setup WSL Utilities
+    import_role:
+      name: dev_wsl_utils
+    tags: dev_wsl_utils
+
+  - name: Setup Python
+    import_role:
+      name: dev_python
+    tags: dev_python
+
+  - name: Setup NodeJS
+    import_role:
+      name: dev_nodejs
+    tags: dev_nodejs
+    vars: 
+      - node_version: 18.16.0
+
+  - name: Azure CLI
+    import_role:
+      name: dev_azure_cli
+    tags: dev_azure_cli
+
+  - name: Dapr CLI
+    import_role:
+      name: dev_dapr_cli
+    tags: dev_dapr_cli
+
+  - name: Wireshark
+    import_role:
+      name: dev_wireshark
+    tags: dev_wireshark
+
+  - name: Rust
+    import_role:
+      name: dev_rust
+    tags: dev_rust
