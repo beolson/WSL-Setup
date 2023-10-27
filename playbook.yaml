@@ -57,3 +57,8 @@
     import_role:
       name: dev_rust
     tags: dev_rust
+
+  - name: Terraform
+    import_role:
+      name: dev_terraform
+    tags: dev_terraform

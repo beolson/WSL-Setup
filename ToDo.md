@@ -12,7 +12,7 @@ ToDo:
 - [] Kubernetes
 - [] DotNET
 - [x] Rust 
-- [] Terraform
+- [x] Terraform
 
 Check in Each
 - full qualified name
