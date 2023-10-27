@@ -17,5 +17,7 @@
 
     - name: install rust/cargo
       when: cargo_exists is failed
-      shell: /tmp/sh.rustup.rs -y
+      shell: |
+        export RUSTUP_USE_CURL=1
+        /tmp/sh.rustup.rs -y
 

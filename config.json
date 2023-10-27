@@ -3,7 +3,7 @@
     "userName" : "beolson",
     "certificates" : [
         {
-
+            "thumbprint": "D72F47D87420E3F0F9BDCAC6F03A566743C481B9"
         }
     ]
 }
