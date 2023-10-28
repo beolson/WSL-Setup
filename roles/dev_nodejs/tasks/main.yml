@@ -39,19 +39,17 @@
 
 
 - name: "**node** set NODE_EXTRA_CA_CERTS environment variable"
-  when: certs.stat.exists == True
   ansible.builtin.blockinfile:  
     marker: "# {mark} ANSIBLE MANAGED BLOCK"
     path: /home/{{ ansible_user_id }}/.profile
     block: |
-      export NODE_EXTRA_CA_CERTS=/usr/local/share/ca-certificates/wincerts.pem
+      export NODE_EXTRA_CA_CERTS=/etc/ssl/certs/ca-certificates.crt
 
 
 - name: "**node** configure node to use certificates"
-  when: certs.stat.exists == True
   become: no
   shell: |
       . {{ ansible_env.HOME }}/.nvm/nvm.sh
-      npm config set cafile=/usr/local/share/ca-certificates/wincerts.pem -L user
+      npm config set cafile=/etc/ssl/certs/ca-certificates.crt  -L user
   args:
     executable: /bin/bash

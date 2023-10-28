@@ -19,7 +19,7 @@
       name: dev_oh_my_bash
     tags: dev_oh_my_bash
     vars: 
-      - theme: "edsonarios"
+      - theme: "absimple"
 
   - name: Setup WSL Utilities
     import_role:

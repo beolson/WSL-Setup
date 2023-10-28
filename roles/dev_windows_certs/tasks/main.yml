@@ -1,26 +1,23 @@
 ---
 
-- name: Check if we have certs to configure
-  ansible.builtin.stat: 
-    path: ./certs/wincerts.pem
-  register: certs
+- name: Create a directory for any certificates
+  become: yes
+  ansible.builtin.file:
 
-- name: Configure Custom Certificates 
-  when: certs.stat.exists == True
-  block:
-  - name: "copy certificates to trusted ca path"
-    become: yes
-    ansible.builtin.copy:
-      src: './certs/wincerts.pem'
-      dest: '/usr/local/share/ca-certificates/wincerts.crt'
-      owner: root
-      group: root
-      mode: 0644
+    path: /usr/local/share/ca-certificates/wincerts
+    state: directory
+    mode: '0755'
 
-  - name: "Change encoding for pem file"
-    become: yes
-    ansible.builtin.shell: 'iconv -f UTF-16LE -t UTF-8 /usr/local/share/ca-certificates/wincerts.crt -o /usr/local/share/ca-certificates/wincerts.crt'
+- name: "copy certificates to trusted ca path"
+  become: yes
+  ansible.builtin.copy:
+    src: './certs/'
+    dest: '/usr/local/share/ca-certificates/wincerts/'
+    # owner: root
+    # group: root
+    mode: 0644
 
-  - name: " update trusted ca"
-    ansible.builtin.shell: /usr/sbin/update-ca-certificates
-    become: yes
+
+- name: " update trusted ca"
+  ansible.builtin.shell: /usr/sbin/update-ca-certificates
+  become: yes
