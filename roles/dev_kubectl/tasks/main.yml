@@ -1,2 +1,25 @@
 ---
-# tasks file for dev_kubectl
+
+- name: Download Hashicorp gpg key
+  become: yes
+  get_url:
+    url: https://pkgs.k8s.io/core:/stable:/v1.28/deb/Release.key
+    dest: /usr/share/keyrings/kubernetes-apt-keyring.gpg_armored
+    checksum: sha256:5fe267a9ae47ffd566624057f2c8f64ab8a786a9c650e92cc22135381b04f12b
+
+
+- name: "Add the hashicorp software repository"
+  become: yes
+  apt_repository:
+    repo: "deb [signed-by=/usr/share/keyrings/kubernetes-apt-keyring.gpg_armored] https://pkgs.k8s.io/core:/stable:/v1.28/deb/ /"
+    state: present
+
+- name: "Get packages needed for the install process"
+  become: yes
+  apt:
+    name: "{{ packages }}"
+    state: present
+    update_cache: yes
+  vars:
+    packages:
+      - kubectl

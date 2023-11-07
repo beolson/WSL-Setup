@@ -1,0 +1,15 @@
+---
+# tasks file for dev_wsl_utils
+- name: "Add DBeaver PPA Repository"
+  become: yes
+  ansible.builtin.apt_repository:
+    repo: ppa:serge-rider/dbeaver-ce
+    update_cache: no
+
+- name: "Install DBeaver apt packages"
+  become: yes
+  ansible.builtin.apt:
+    name:
+      - dbeaver-ce
+    update_cache: yes
+    state: present

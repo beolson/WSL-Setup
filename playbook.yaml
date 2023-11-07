@@ -62,3 +62,18 @@
     import_role:
       name: dev_terraform
     tags: dev_terraform
+
+  - name: DotNet
+    import_role:
+      name: dev_dotnet
+    tags: dev_dotnet
+
+  - name: DBeaver
+    import_role:
+      name: dev_dbeaver
+    tags: dev_dbeaver
+
+  - name: Kubectl
+    import_role:
+      name: dev_kubectl
+    tags: dev_kubectl
