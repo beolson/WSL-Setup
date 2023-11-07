@@ -1,0 +1,7 @@
+---
+
+- name: Install vscode extensions
+  shell: code --install-extension {{ item }}
+  loop:
+     - esbenp.prettier-vscode
+

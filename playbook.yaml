@@ -77,3 +77,8 @@
     import_role:
       name: dev_kubectl
     tags: dev_kubectl
+
+  - name: VSCode Extensions
+    import_role:
+      name: dev_vscode_ext
+    tags: dev_vscode_ext
