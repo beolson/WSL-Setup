@@ -4,4 +4,9 @@
   shell: code --install-extension {{ item }}
   loop:
      - esbenp.prettier-vscode
+     - ms-dotnettools.csdevkit
+     - ms-azuretools.vscode-docker
+     - dbaeumer.vscode-eslint 
+     - ms-kubernetes-tools.vscode-kubernetes-tools
+     - ms-python.python
 
