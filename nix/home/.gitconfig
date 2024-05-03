@@ -1,0 +1,14 @@
+[credential]
+	helper = /usr/local/bin/git-credential-manager
+	guiPrompt = false
+	credentialStore = cache
+	azreposCredentialType = oauth
+[credential "https://dev.azure.com"]
+	useHttpPath = true
+[init]
+	defaultbranch = main
+
+[includeIf "gitdir:~/src/h4h/"]
+  path = .gitconfig-h4h
+[includeIf "gitdir:~/src/kiewit/"]
+  path = .gitconfig-kiewit
