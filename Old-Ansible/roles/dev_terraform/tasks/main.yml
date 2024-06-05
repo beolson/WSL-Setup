@@ -1,0 +1,25 @@
+---
+
+- name: Download Hashicorp gpg key
+  become: yes
+  get_url:
+    url: https://apt.releases.hashicorp.com/gpg
+    dest: /usr/share/keyrings/hashicorp-archive-keyring.gpg_armored
+    checksum: sha256:cafb01beac341bf2a9ba89793e6dd2468110291adfbb6c62ed11a0cde6c09029
+
+
+- name: "Add the hashicorp software repository"
+  become: yes
+  apt_repository:
+    repo: "deb [signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg_armored] https://apt.releases.hashicorp.com jammy main"
+    state: present
+
+- name: "Get packages needed for the install process"
+  become: yes
+  apt:
+    name: "{{ packages }}"
+    state: present
+    update_cache: yes
+  vars:
+    packages:
+      - terraform
