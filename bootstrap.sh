@@ -60,10 +60,7 @@ fi
 #setup nvm and pnpm and global node packages
 wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
 wget -qO- https://get.pnpm.io/install.sh | sh -
-source /home/beolson/.bashrc
-nvm install v20.14.0 
-pnpm config set cafile /etc/ssl/certs/ca-certificates.crt -g
-pnpm install @devcontainers/cli -g
+
 
 
 echo '********************************************'
