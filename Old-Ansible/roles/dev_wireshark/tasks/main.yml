@@ -1,9 +1,0 @@
----
-# tasks file for dev_wireshark
-
-- name: "**wireshark** Install Wireshark"
-  become: yes
-  apt:
-    name: wireshark
-    state: present
-    update_cache: yes
