@@ -61,6 +61,44 @@ wget -qO- https://get.pnpm.io/install.sh | sh -
 echo '******************* install Node completed'
 #!/bin/bash -i
 
+echo '******************* install Dot Net starting'
+
+wget https://download.visualstudio.microsoft.com/download/pr/ca6cd525-677e-4d3a-b66c-11348a6f920a/ec395f498f89d0ca4d67d903892af82d/dotnet-sdk-8.0.403-linux-x64.tar.gz
+sudo mkdir -p /usr/local/dotnet && tar zxf dotnet-sdk-8.0.403-linux-x64.tar.gz -C /usr/local/dotnet
+export DOTNET_ROOT=/usr/local/dotnet
+export PATH=$PATH:/usr/local/dotnet
+
+echo 'DOTNET_ROOT=/usr/local/dotnet' >>~/.profile
+echo 'PATH=$PATH:/usr/local/dotnet' >>~/.profile
+
+rm dotnet-sdk-8.0.403-linux-x64.tar.gz
+
+echo '******************* install Dot Net completed'
+#!/bin/bash -i
+
+
+
+echo '******************* install Rust starting'
+
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+
+
+echo '******************* install Rust completed'
+#!/bin/bash -i
+
+echo '******************* install Go starting'
+
+wget https://go.dev/dl/go1.23.3.linux-amd64.tar.gz
+sudo tar -C /usr/local -xzf go1.23.3.linux-amd64.tar.gz
+
+export PATH=$PATH:/usr/local/go/bin
+echo 'PATH=$PATH:/usr/local/go/bin' >>~/.profile
+
+rm go1.23.3.linux-amd64.tar.gz
+
+echo '******************* install Go completed'
+#!/bin/bash -i
+
 echo '******************* configure Dot Files starting'
 
 readonly DOT_FILES_REPO='https://github.com/beolson/Dotfiles.git'

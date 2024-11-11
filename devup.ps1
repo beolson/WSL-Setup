@@ -1,13 +1,12 @@
 $json = Get-Content -Raw -Path .\config.json | ConvertFrom-Json
 $distributionName = $json.wslDistribution
+$wslUserName = $json.userName
 
 wsl --set-version 2
 wsl --unregister $distributionName
 wsl --install -d $distributionName 
 
-$json = Get-Content -Raw -Path .\config.json | ConvertFrom-Json
-$distributionName = $json.wslDistribution
-$wslUserName = $json.userName
+
 
 $scripts = @(
     'apt_upgrade.sh'
@@ -17,9 +16,9 @@ $scripts = @(
     'install_oh_my_bash.sh'
   
     'install_node_tools.sh'
-    # 'install_dotnet.sh'
-    # 'install_rust.sh'
-    # 'install_go.sh'
+    'install_dotnet.sh'
+    'install_rust.sh'
+    'install_go.sh'
     'configure_dot_files.sh'
 )
 #concat the file instead, then run one file?  fix the sudo password problem?
