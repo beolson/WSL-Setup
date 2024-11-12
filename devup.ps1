@@ -29,19 +29,4 @@ Get-Content $scripts | Set-Content config_sys.sh
 wsl --shell-type standard --distribution $distributionName --user $wslUserName --exec sed -i 's/\r$//' ./config_sys.sh
 wsl --shell-type standard --distribution $distributionName --user $wslUserName --exec bash ./config_sys.sh
 
-# ForEach ($script in $scripts) {
-
-#     wsl --shell-type standard --distribution $distributionName --user $wslUserName --exec sed -i 's/\r$//' ./$script
-#     wsl --shell-type standard --distribution $distributionName --user $wslUserName --exec bash ./$script
-# # reload bash env after each?
-# }
-
-# # # # Update our shell script to remove windows line endings
-# wsl --shell-type standard --distribution $distributionName --user $wslUserName --exec sed -i 's/\r$//' ./bootstrap.sh
-# wsl --shell-type standard --distribution $distributionName --user $wslUserName --exec bash ./bootstrap.sh
-
-# # wsl -t $distributionName
-
-# # Update our shell script to remove windows line endings
-# wsl --shell-type standard --distribution $distributionName --user $wslUserName --exec sed -i 's/\r$//' ./bootstrap_step_2.sh
-# wsl --shell-type standard --distribution $distributionName --user $wslUserName ./bootstrap_step_2.sh
+Remove-Item config_sys.sh
