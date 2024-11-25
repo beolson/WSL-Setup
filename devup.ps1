@@ -14,11 +14,6 @@ $scripts = @(
     'install_wsl_tools.sh'
     'install_git_cred_manager.sh'
     'install_oh_my_bash.sh'
-  
-    'install_node_tools.sh'
-    'install_dotnet.sh'
-    'install_rust.sh'
-    'install_go.sh'
     'configure_dot_files.sh'
 )
 #concat the file instead, then run one file?  fix the sudo password problem?
