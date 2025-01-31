@@ -1,7 +1,8 @@
 #!/bin/bash -i
 
 echo '******************* install Git Credential Manager starting'
-
+ARCH=$(uname -m)
+echo $ARCH
 
 if [[ "$ARCH" == "x86_64" ]]; then
     readonly GIT_CREDENTIAL_MANAGER_URL='https://github.com/git-ecosystem/git-credential-manager/releases/download/v2.5.0/gcm-linux_amd64.2.5.0.deb';
