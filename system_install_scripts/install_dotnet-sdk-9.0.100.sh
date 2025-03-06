@@ -17,7 +17,7 @@ else
     return "Unsupported architecture: $ARCH" 2>/dev/null || exit "Unsupported architecture: $ARCH"
 fi
 
-sudo apt install -y ca-certificates libc6 libgcc-s1 libgssapi-krb5-2 libicu74 liblttng-ust1 libssl3 libstdc++6 libunwind8 zlib1g
+
 
 wget $DOWNLOAD_URL
 if ! echo "$CHECKSUM $ARCHIVE_FILE" | sha512sum -c -; then

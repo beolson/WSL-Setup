@@ -4,7 +4,6 @@ echo '******************* install Dot Net starting'
 ARCH=$(uname -m)
 INSTALL_LOCATION="/usr/local/dotnet"
 
-sudo apt install -y ca-certificates libc6 libgcc-s1 libgssapi-krb5-2 libicu74 liblttng-ust1 libssl3 libstdc++6 libunwind8 zlib1g
 
 if [[ "$ARCH" == "x86_64" ]]; then
     DOWNLOAD_URL="https://download.visualstudio.microsoft.com/download/pr/4e3b04aa-c015-4e06-a42e-05f9f3c54ed2/74d1bb68e330eea13ecfc47f7cf9aeb7/dotnet-sdk-8.0.404-linux-x64.tar.gz"

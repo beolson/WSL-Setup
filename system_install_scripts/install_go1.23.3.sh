@@ -3,7 +3,7 @@
 echo '******************* install Go Starting'
 
 ARCH=$(uname -m)
-INSTALL_LOCATION="/usr/local/go/bin"
+INSTALL_LOCATION="/usr/local/"
 START_MARKER="### Begin Go ###"
 END_MARKER="### End Go ###"
 
@@ -32,14 +32,11 @@ sudo tar zxf $ARCHIVE_FILE -C $INSTALL_LOCATION
 
 export  PATH=$PATH:$INSTALL_LOCATION 
 
-# remove existing profile exports
-sed -i "/$START_MARKER/,/$END_MARKER/d" ~/.profile
-
 {
-    echo "$START_MARKER"
-    echo 'PATH=$PATH:$INSTALL_LOCATION'
-    echo "$END_MARKER"
-} >> ~/.profile
+    echo "export PATH=\$PATH:$INSTALL_LOCATION"
+} >> /etc/profile.d/go.sh
+
+chmod +x /etc/profile.d/go.sh
 
 rm $ARCHIVE_FILE
 

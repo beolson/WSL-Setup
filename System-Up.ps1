@@ -22,8 +22,9 @@ function Run-Script-In-Wsl {
     wsl --shell-type standard --distribution $distributionName --user root --exec bash ./$scriptPath
 }
 
-# Run-Script-In-Wsl -scriptPath 'install_scripts/apt_upgrade.sh' 
-# Run-Script-In-Wsl -scriptPath 'install_scripts/configure_ca_certs.sh' 
-# Run-Script-In-Wsl -scriptPath 'install_scripts/install_git_cred_manager.sh' 
-# Run-Script-In-Wsl -scriptPath 'install_scripts/install_dotnet-sdk-8.0.403.sh' 
-# Run-Script-In-Wsl -scriptPath 'install_scripts/install_dotnet-sdk-9.0.100.sh' 
+Run-Script-In-Wsl -scriptPath 'system_install_scripts/apt_upgrade.sh' 
+Run-Script-In-Wsl -scriptPath 'system_install_scripts/configure_ca_certs.sh' 
+Run-Script-In-Wsl -scriptPath 'system_install_scripts/install_git_cred_manager.sh' 
+Run-Script-In-Wsl -scriptPath 'system_install_scripts/install_dotnet-sdk-8.0.403.sh' 
+Run-Script-In-Wsl -scriptPath 'system_install_scripts/install_dotnet-sdk-9.0.100.sh' 
+Run-Script-In-Wsl -scriptPath 'system_install_scripts/install_go1.23.3.sh'
