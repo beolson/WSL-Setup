@@ -12,7 +12,6 @@ function Run-Script-In-Wsl {
     # convert from windows line endings to unix line endings
     ((Get-Content $scriptPath) -join "`n") + "`n" | Set-Content -NoNewline $scriptPath
 
-    echo --shell-type standard --distribution $distributionName --user $user --exec bash ./$scriptPath
 
     wsl --shell-type standard --distribution $distributionName --user $user --exec bash ./$scriptPath
 }
