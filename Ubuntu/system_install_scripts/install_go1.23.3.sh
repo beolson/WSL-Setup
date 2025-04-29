@@ -33,7 +33,7 @@ sudo tar zxf $ARCHIVE_FILE -C $INSTALL_LOCATION
 export  PATH=$PATH:$INSTALL_LOCATION 
 
 {
-    echo "export PATH=\$PATH:$INSTALL_LOCATION"
+    echo "export PATH=\$PATH:$INSTALL_LOCATION\/go/bin"
 } >> /etc/profile.d/go.sh
 
 chmod +x /etc/profile.d/go.sh
