@@ -1,7 +1,7 @@
 #!/bin/bash -i
 
 echo '******************* configure ca certs starting'
-
+apt-get -y install ca-certificates
 CERTS="../certs/*"
 mkdir /usr/local/share/ca-certificates/
 for f in $CERTS
