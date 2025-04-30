@@ -3,7 +3,7 @@
 echo '******************* configure ca certs starting'
 
 CERTS="../certs/*"
-
+mkdir /usr/local/share/ca-certificates/
 for f in $CERTS
 do
     echo "copying $f into cert store"
