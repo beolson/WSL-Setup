@@ -14,8 +14,8 @@ if ! echo "$CHECKSUM $ARCHIVE_FILE" | sha512sum -c -; then
     exit 1
 fi
 
-sudo mkdir -p $INSTALL_LOCATION 
-sudo tar zxf $ARCHIVE_FILE -C $INSTALL_LOCATION
+mkdir -p $INSTALL_LOCATION 
+tar zxf $ARCHIVE_FILE -C $INSTALL_LOCATION
 
 export DOTNET_ROOT=$INSTALL_LOCATION
 export PATH=$PATH:$INSTALL_LOCATION

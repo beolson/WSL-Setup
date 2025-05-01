@@ -4,8 +4,6 @@ echo '******************* install Go Starting'
 
 ARCH=$(uname -m)
 INSTALL_LOCATION="/usr/local/"
-START_MARKER="### Begin Go ###"
-END_MARKER="### End Go ###"
 
 if [[ "$ARCH" == "x86_64" ]]; then
     DOWNLOAD_URL="https://go.dev/dl/go1.23.3.linux-amd64.tar.gz"
@@ -27,8 +25,8 @@ if ! echo "$CHECKSUM $ARCHIVE_FILE" | sha256sum -c -; then
     exit 1
 fi
 
-sudo mkdir -p $INSTALL_LOCATION 
-sudo tar zxf $ARCHIVE_FILE -C $INSTALL_LOCATION
+mkdir -p $INSTALL_LOCATION 
+tar zxf $ARCHIVE_FILE -C $INSTALL_LOCATION
 
 export  PATH=$PATH:$INSTALL_LOCATION 
 
