@@ -2,7 +2,7 @@
 
 echo '******************* copy gitconfig'
 
-cp -r ../gitconfig/. ~/
+cp -r ./gitconfig/. ~/
 
 
 
