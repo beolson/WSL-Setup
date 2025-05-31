@@ -17,9 +17,9 @@ if ($replace) {
 }
 
 #system 
-# Invoke-WSLScript -scriptPath './apt_upgrade.sh' -distributionName $distributionName
-# Invoke-WSLScript -scriptPath './configure_ca_certs.sh' -distributionName $distributionName
-# Invoke-WSLScript -scriptPath './install_git_cred_manager.sh' -distributionName $distributionName
+Invoke-WSLScript -scriptPath './apt_upgrade.sh' -distributionName $distributionName
+Invoke-WSLScript -scriptPath './configure_ca_certs.sh' -distributionName $distributionName
+Invoke-WSLScript -scriptPath './install_git_cred_manager.sh' -distributionName $distributionName
 
 #user
 Invoke-WSLScript -scriptPath './configure_git.sh'-distributionName $distributionName -user $userName
