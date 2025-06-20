@@ -1,10 +1,4 @@
-[credential]
-	helper = /usr/local/bin/git-credential-manager
-	guiPrompt = false
-	credentialStore = cache
-	azreposCredentialType = oauth
-[credential "https://dev.azure.com"]
-	useHttpPath = true
+
 [init]
 	defaultbranch = main
 
@@ -12,7 +6,4 @@
   path = .gitconfig-h4h
 [includeIf "gitdir:~/src/kiewit/"]
   path = .gitconfig-kiewit
-[includeIf "gitdir:~/.dotfiles/"]
-  path = .gitconfig-h4h
-[credential "azrepos:org/kiewitcorp"]
-	username = Brian.Olson@kiewit.com
+
