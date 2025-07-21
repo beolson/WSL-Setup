@@ -17,11 +17,10 @@ if ($replace) {
 }
 
 #system 
-Invoke-WSLScript -scriptPath './apt_upgrade.sh' -distributionName $distributionName
-Invoke-WSLScript -scriptPath './configure_ca_certs.sh' -distributionName $distributionName
+Invoke-WSLScript -scriptPath './config_system.sh' -distributionName $distributionName
 
 #user
-Invoke-WSLScript -scriptPath './configure_git.sh'-distributionName $distributionName -user $userName
+Invoke-WSLScript -scriptPath './config_user.sh'-distributionName $distributionName -user $userName
 
 
 
